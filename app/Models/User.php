@@ -5,10 +5,11 @@ namespace App\Models;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Traits\FormatTimestamps;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable;
+    use Notifiable, FormatTimestamps;
 
     /**
      * Model fillable fields
@@ -16,11 +17,19 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'username',
+        'email',
         'first_name',
         'last_name',
-        'email',
         'password'
+    ];
+
+    /**
+     * Appends custom attributes
+     *
+     * @var array
+     */
+    protected $appends = [
+        'full_name'
     ];
 
     /**
@@ -29,7 +38,8 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /**
@@ -48,6 +58,15 @@ class User extends Authenticatable implements JWTSubject
      */
     public function jobs() {
         return $this->hasMany(Job::class, 'user_id');
+    }
+
+    /**
+     * Return the user full name
+     *
+     * @return string
+     */
+    public function getFullNameAttribute(){
+        return "{$this->first_name} {$this->last_name}";
     }
 
     /**
