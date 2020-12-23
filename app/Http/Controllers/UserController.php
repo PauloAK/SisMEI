@@ -18,9 +18,7 @@ class UserController extends Controller
     {
         $users = user::all();
 
-        return response()->json([
-            'data' => $users
-        ], 200);
+        return response()->json(default_response([ 'users' => $users ]), 200);
     }
 
     /**
@@ -33,10 +31,7 @@ class UserController extends Controller
     {
         $user = User::create($request->all());
 
-        return response()->json([
-            'message' => 'User created',
-            'data' => $user
-        ], 201);
+        return response()->json(success("User created", CODE::S_CREATED), 201);
     }
 
     /**
@@ -47,7 +42,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return response()->json(default_response([ 'user' => $user ]), 200);
     }
 
     /**
@@ -61,10 +56,7 @@ class UserController extends Controller
     {
         $user = $user->update($request->all());
 
-        return response()->json([
-            'message' => 'User updated',
-            'data' => $user
-        ], 200);
+        return response()->json(success("User updated", CODE::S_UPDATED), 200);
     }
 
     /**
@@ -75,6 +67,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return response()->json(success("User deleted", CODE::S_DELETED), 200);
     }
 }
