@@ -20,12 +20,4 @@ class Address extends Model
         'state',
         'zip'
     ];
-
-    /**
-     * User customers
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function customer() {
-        return $this->belongsTo(Customer::Class, 'customer_id');
-    }
 }

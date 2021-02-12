@@ -16,8 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = user::all();
-
+        $users = User::all();
         return response()->json(default_response([ 'users' => $users ]), 200);
     }
 
@@ -30,7 +29,6 @@ class UserController extends Controller
     public function store(Store $request)
     {
         $user = User::create($request->all());
-
         return response()->json(success("User created", CODE::S_CREATED), 201);
     }
 
@@ -55,7 +53,6 @@ class UserController extends Controller
     public function update(Update $request, User $user)
     {
         $user = $user->update($request->all());
-
         return response()->json(success("User updated", CODE::S_UPDATED), 200);
     }
 

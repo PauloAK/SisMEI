@@ -20,7 +20,8 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'first_name',
         'last_name',
-        'password'
+        'password',
+        'address_id'
     ];
 
     /**
@@ -38,7 +39,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $hidden = [
-        'password',
+        'password'
     ];
 
     /**
@@ -59,6 +60,15 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Job::class, 'user_id');
     }
 
+        /**
+     * Customer Addresses
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function address() {
+        return $this->hasOne(Address::class, 'address_id');
+    }
+
     /**
      * Return the user full name
      *
@@ -66,6 +76,15 @@ class User extends Authenticatable implements JWTSubject
      */
     public function getFullNameAttribute(){
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    /**
+     * Encrypt the new password
+     *
+     * @return string
+     */
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = bcrypt($value);
     }
 
     /**

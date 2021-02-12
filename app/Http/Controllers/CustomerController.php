@@ -14,7 +14,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $customers = auth()->user()->customers;
+        return response()->json(default_response([ 'customers' => $customers ]), 200);
     }
 
     /**
@@ -25,7 +26,8 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $customer = auth()->user()->customers()->create($request->all());
+        return response()->json(success("Customer created", CODE::S_CREATED), 201);
     }
 
     /**
@@ -36,7 +38,7 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return response()->json(default_response([ 'customer' => $customer ]), 200);
     }
 
     /**
@@ -48,7 +50,8 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        //
+        $customer = $customer->update($request->all());
+        return response()->json(success("Customer updated", CODE::S_UPDATED), 200);
     }
 
     /**
@@ -59,6 +62,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return response()->json(success("Customer deleted", CODE::S_DELETED), 200);
     }
 }

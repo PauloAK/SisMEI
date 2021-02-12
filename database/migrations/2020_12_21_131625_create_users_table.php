@@ -19,8 +19,11 @@ class CreateUsersTable extends Migration
             $table->string('first_name', 40);
             $table->string('last_name', 40);
             $table->string('password');
+            $table->unsignedInteger('address_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('address_id')->references('id')->on('addresses');
         });
     }
 

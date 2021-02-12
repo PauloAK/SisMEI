@@ -27,7 +27,7 @@ class Update extends FormRequest
             'email' => "required|email|unique:App\Models\User,email,{$this->route()->parameter('user')}",
             'first_name' => 'required|string|40',
             'last_name' => 'required|string|40',
-            'password' => 'required|string|min:6'
+            'password' => 'nullable|string|min:6'
         ];
     }
 }
