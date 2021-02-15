@@ -11,6 +11,9 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { HomeComponent } from './components/app/home/home.component';
 import { AuthLayoutComponent } from './components/layouts/auth-layout/auth-layout.component';
 import { AppLayoutComponent } from './components/layouts/app-layout/app-layout.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NbThemeModule, NbLayoutModule, NbSidebarModule, NbMenuModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,12 @@ import { AppLayoutComponent } from './components/layouts/app-layout/app-layout.c
     FormsModule,
     HttpClientModule,
     SnotifyModule,
+    BrowserAnimationsModule,
+    NbThemeModule.forRoot({ name: 'dark' }),
+    NbLayoutModule,
+    NbEvaIconsModule,
+    NbSidebarModule.forRoot(),
+    NbMenuModule.forRoot()
   ],
   providers: [
     { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
